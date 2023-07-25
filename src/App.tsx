@@ -3,6 +3,7 @@ import { Header } from './components/Header'
 import {Route, Routes} from 'react-router-dom'
 import { AuthForm } from './pages/AuthForm'
 import { Home } from './pages/Home'
+import { RequiredAuth } from './contexts/Auth/RequiredAuth'
 
 function App() {
   const [user, setUser] = useState()
@@ -13,7 +14,7 @@ function App() {
       
       <Routes>
         <Route path='/' element={<AuthForm />} />
-        <Route path='/home' element={<Home />} />
+        <Route path='/home' element={ <RequiredAuth><Home /></RequiredAuth>} />
       </Routes>
     </section>
   )

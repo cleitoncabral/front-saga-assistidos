@@ -1,5 +1,5 @@
 export const Header = () => {
   return (
-    <header className="bg-black"> <img src="/logo.svg" /></header>
+    <header className="flex justify-center w-full bg-black py-5"> <img className="center" src="/logo.svg" /></header>
   )
 }
