@@ -1,8 +1,9 @@
-import {useState, useContext, ChangeEvent, HTMLFormElement} from 'react'
+import {useState, useContext, ChangeEvent, FormEvent} from 'react'
 import { Input } from "../../components/Input"
 import { Button } from '../../components/Button'
 import { useNavigate } from "react-router-dom";
 import {AuthContext} from '../../contexts/Auth/AuthContext'
+import { ShowError } from '../../components/ShowError';
 
 type variant = 'LOGIN' | 'REGISTER'
 
@@ -14,6 +15,7 @@ export const AuthForm: React.FC = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
+  const [error, setError] = useState('')
 
   const handleNameInput = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -30,36 +32,41 @@ export const AuthForm: React.FC = () => {
     setPassword(e.target.value)
   }
 
-  const handleAuth = async (e: HTMLFormElement<HTMLInputElement>) => {
+  const handleAuth = async (e: FormEvent) => {
     e.preventDefault()
-    if (variant === 'LOGIN' && email && password) {
-      const isLogged = await auth.signin(email, password)
-      
-      if (isLogged) {
-        navigate('/home');
-      } else {
-          alert("Não deu certo.");
-      }
-    }
-
-    if (variant === 'REGISTER') {
-      const userRegister = {
-        name,
-        email,
-        password
-      }
-       if (userRegister) {
-        const isRegistered = await auth.register(userRegister) 
-        if (isRegistered) {
-          const isLogged = await auth.signin(email, password)
-      
-          if (isLogged) {
-            navigate('/home');
-          } else {
-              alert("Não deu certo.");
-          }
+    try {
+      if (variant === 'LOGIN' && email && password) {
+        const isLogged = await auth.signin(email, password)
+        
+        if (isLogged) {
+          navigate('/home');
+        } else {
+          setError('Dados de Login inválidos')
+          console.log(error)
         }
-       }
+      }
+  
+      if (variant === 'REGISTER') {
+        const userRegister = {
+          name,
+          email,
+          password
+        }
+         if (userRegister) {
+          const isRegistered = await auth.register(userRegister) 
+          if (isRegistered) {
+            const isLogged = await auth.signin(email, password)
+        
+            if (isLogged) {
+              navigate('/home');
+            } else {
+              setError('Dados de Login inválidos')
+            }
+          }
+         }
+      }
+    } catch (error: any) {
+      setError(error.response.data.error)
     }
   }
   
@@ -78,20 +85,21 @@ export const AuthForm: React.FC = () => {
           <Input label='E-mail' id='email' type='text' required={true} placeholder='Digite seu e-mail' value={email} onChange={handleEmailInput}/>
           <Input label='Password' id='password' type='password' required={true} placeholder='Digite seu senha' value={password} onChange={handlePasswordInput} />
 
+          {error && <p>{error}</p>}
           <div>
             <Button fullWidth type='submit'> {variant === 'LOGIN' ? 'Entrar' : 'Criar conta'} </Button>
           </div>
         </form>
 
         <div className="flex gap-2 justify-center mt-6 text-sm px-2 text-gray-500">
-            <div>
-              {variant === 'LOGIN' ? 'Primeira vez aqui?' : 'Já tem uma conta?'}
-            </div>
-
-            <div onClick={() => variant === 'LOGIN' ? setvariant('REGISTER') : setvariant('LOGIN')} className='text-gray-500 underline cursor-pointer'>
-              {variant === 'LOGIN' ? 'Crie uma conta!' : 'Fazer Login'}
-            </div>
+          <div>
+            {variant === 'LOGIN' ? 'Primeira vez aqui?' : 'Já tem uma conta?'}
           </div>
+
+          <div onClick={() => variant === 'LOGIN' ? setvariant('REGISTER') : setvariant('LOGIN')} className='text-gray-500 underline cursor-pointer'>
+            {variant === 'LOGIN' ? 'Crie uma conta!' : 'Fazer Login'}
+          </div>
+        </div>
       </div>
     </div>
     </>

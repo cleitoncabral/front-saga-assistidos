@@ -9,7 +9,8 @@ module.exports = {
     extend: {
       colors: {
         greenDefault: '#219653',
-        greenDefaultHover: '#1a7741'
+        greenDefaultHover: '#1a7741',
+        redDefault: '#ff3333'
       }
     },
     

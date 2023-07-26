@@ -6,6 +6,6 @@ export const Home = () => {
   return (
     <div>
       <h1>boas vindas, {userAuth.user?.name}</h1>
-      </div>
+    </div>
   )
 }
