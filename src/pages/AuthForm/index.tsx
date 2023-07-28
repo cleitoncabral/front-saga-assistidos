@@ -15,7 +15,7 @@ export const AuthForm: React.FC = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
-  const [error, setError] = useState('')
+  const [error, setError] = useState<string>('')
 
   const handleNameInput = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -66,7 +66,7 @@ export const AuthForm: React.FC = () => {
          }
       }
     } catch (error: any) {
-      setError(error.response.data.error)
+      setError(error)
     }
   }
   
@@ -85,7 +85,7 @@ export const AuthForm: React.FC = () => {
           <Input label='E-mail' id='email' type='text' required={true} placeholder='Digite seu e-mail' value={email} onChange={handleEmailInput}/>
           <Input label='Password' id='password' type='password' required={true} placeholder='Digite seu senha' value={password} onChange={handlePasswordInput} />
 
-          {error && <p>{error}</p>}
+          {error && <ShowError error={error} />}
           <div>
             <Button fullWidth type='submit'> {variant === 'LOGIN' ? 'Entrar' : 'Criar conta'} </Button>
           </div>

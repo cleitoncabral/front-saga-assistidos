@@ -1,20 +1,24 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { AuthContext } from "./AuthContext"
 import { User } from "../../types/User"
 import { useApi } from "../../hooks/useApi"
 import { UserRegister } from "../../types/UserRegister"
+import { DataContentContext } from "../DataContentMovieApi/DataContentContext"
+
 
 export const AuthProvider = ({children}: {children: JSX.Element}) => {
 
   const [user, setUser] = useState<User | null>(null)
   const api = useApi()
+  const dataApi = useContext(DataContentContext)
 
   const signin = async (email: string, password: string) => {
     const data = await api.signin(email, password)
-    console.log(data)
+    
     if (data && data.token) {
       setUser(data)
       setLocalStorage(data.token)
+      console.log(data)
       return true
     }
 
