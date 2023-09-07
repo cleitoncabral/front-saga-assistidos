@@ -10,7 +10,7 @@ export const useApi = () => ({
   // },
   signin: async (email: string, password: string) => {
     const response = await api.post('/login', {email, password})
-    console.log(response)
+    
     return response.data
   },
   register: async (userRegister: object) => {

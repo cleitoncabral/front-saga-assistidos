@@ -1,3 +1,6 @@
-export const ShowError = (errorType: String) => {
-  return <p className="text-redDefault">{errorType}</p>
+interface errorType { 
+  error: string
+}
+export const ShowError: React.FC<errorType> = ({error}) => {
+  return <p className="text-redDefault">{error}</p>
 }
