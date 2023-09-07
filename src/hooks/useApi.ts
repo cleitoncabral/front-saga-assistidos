@@ -14,6 +14,7 @@ export const useApi = () => ({
     return response.data
   },
   register: async (userRegister: object) => {
+    console.log(userRegister)
     const response = await api.post('/users', userRegister)
     return response.data
   },
