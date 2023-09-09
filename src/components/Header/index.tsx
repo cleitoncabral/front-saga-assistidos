@@ -1,5 +1,15 @@
-export const Header = () => {
+import {clsx} from 'clsx'
+import { SearchBar } from '../SearchBar'
+export const Header = ({isAuth} : {isAuth: boolean}) => {
   return (
-    <header className="flex justify-center w-full bg-black py-5"> <img className="center" src="/logo.svg" /></header>
+    <header className={clsx(isAuth ? "justify-start" : "justify-center", "flex w-full bg-black py-5")}> 
+      <img className="center" src="/logo.svg" />
+
+      {isAuth &&
+
+      <SearchBar />
+
+      }
+    </header>
   )
 }

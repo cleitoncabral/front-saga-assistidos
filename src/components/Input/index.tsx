@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, InputHTMLAttributes } from "react"
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label: string,
+  label?: string,
   id: string,
   type?: string,
   required?: boolean,
