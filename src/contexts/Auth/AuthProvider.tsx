@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { AuthContext } from "./AuthContext"
 import { User } from "../../types/User"
 import { useApi } from "../../hooks/useApi"
@@ -13,18 +13,38 @@ export const AuthProvider = ({children}: {children: JSX.Element}) => {
   const [user, setUser] = useState<User | null>(null)
   const api = useApi()
 
+  useEffect(() => {
+    const validateToken = async () => {
+      const storageData = localStorage.getItem('authToken')
+      if (storageData) {
+        const data = await api.validateToken(storageData)
+
+        if (data.user) {
+          setUser(data.user)
+        }
+      }
+    }
+
+    validateToken()
+  }, [api])
+
   const signin = async (email: string, password: string) => {
     const data = await api.signin(email, password)
     if (data && data.token) {
       await data.contentWatched.forEach((item: ContentWatched) => item.contentWatchedItem = getContentWatched.contentWatched(item.contentId))
       
-      console.log(data)
+      localStorage.setItem('user', data)
+      localStorage.setItem('token', data.token)
       setUser(data)
-      setLocalStorage(data.token)
+      setToken(data.token)
       return true
     }
 
     return false
+  }
+
+  const setToken = (token: string) => {
+    localStorage.setItem('authToken', token)
   }
 
   const signout = () => {
@@ -39,10 +59,6 @@ export const AuthProvider = ({children}: {children: JSX.Element}) => {
     }
 
     return false
-  }
-
-  const setLocalStorage = (token: string) => {
-    localStorage.setItem('authToken', token)
   }
 
   return (
