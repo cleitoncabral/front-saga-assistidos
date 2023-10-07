@@ -1,20 +1,19 @@
-import { Header } from './components/Header'
 import {Route, Routes} from 'react-router-dom'
 import { AuthForm } from './pages/AuthForm'
 import { Home } from './pages/Home'
 import { RequiredAuth } from './contexts/Auth/RequiredAuth'
-import { useContext } from "react"
-import { AuthContext } from "./contexts/Auth/AuthContext"
+import { SearchContent } from './pages/SearchContent/SearchContent'
+import { useState } from 'react'
+
 function App() {
-  const userAuth = useContext(AuthContext)
-  console.log(userAuth)
+  const [searchResult, setSearchResult] = useState<object | null>(null)
+  
   return (
     <section className='text-white'>
-      <Header isAuth={userAuth.user ? true : false} />
-      
       <Routes>
         <Route path='/' element={<AuthForm />} />
-        <Route path='/home' element={ <RequiredAuth><Home /></RequiredAuth>} />
+        <Route path='/home' element={ <RequiredAuth><Home onSearchResult={setSearchResult}/></RequiredAuth>} />
+        <Route path='/searchContent'  element={ <RequiredAuth><SearchContent searchResult={searchResult} /></RequiredAuth>} />
       </Routes>
     </section>
   )

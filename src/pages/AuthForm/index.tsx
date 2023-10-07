@@ -1,5 +1,6 @@
 import {useState, useContext, ChangeEvent, FormEvent} from 'react'
 import { Input } from "../../components/Input"
+import { Header } from "../../components/Header"
 import { Button } from '../../components/Button'
 import { useNavigate } from "react-router-dom";
 import {AuthContext} from '../../contexts/Auth/AuthContext'
@@ -40,10 +41,11 @@ export const AuthForm: React.FC = () => {
         
         if (isLogged) {
           navigate('/home');
-        } else {
-          setError('Dados de Login inválidos')
-          console.log(error)
-        }
+        } 
+        // else {
+        //   setError('Dados de Login inválidos')
+        //   console.log(error)
+        // }
       }
   
       if (variant === 'REGISTER') {
@@ -72,6 +74,7 @@ export const AuthForm: React.FC = () => {
   
   return (
     <>
+    <Header />
     {variant == 'REGISTER' ? (
       <h1 className='text-center bold'>Registre-se ;p</h1>
     ) : <h1 className='text-center bold'>Faça Login :)</h1>}
@@ -85,7 +88,7 @@ export const AuthForm: React.FC = () => {
           <Input label='E-mail' id='email' type='text' required={true} placeholder='Digite seu e-mail' value={email} onChange={handleEmailInput}/>
           <Input label='Password' id='password' type='password' required={true} placeholder='Digite seu senha' value={password} onChange={handlePasswordInput} />
 
-          {error && <ShowError error={error} />}
+          <ShowError error={error} />
           <div>
             <Button fullWidth type='submit'> {variant === 'LOGIN' ? 'Entrar' : 'Criar conta'} </Button>
           </div>

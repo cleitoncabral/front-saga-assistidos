@@ -10,7 +10,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void,
   value?: string
 }
-export const Input: FC<InputProps> = ({label, id, type, placeholder, required, disabled, onChange, value}) => {
+export const Input: React.FC<InputProps> = ({label, id, type, placeholder, required, disabled, onChange, value}) => {
   return (
     <div>
       <label className='block text-sm font-medium text-white leading-6 mb-2'>{label}</label>

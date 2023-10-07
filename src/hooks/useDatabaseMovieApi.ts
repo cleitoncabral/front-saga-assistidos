@@ -1,10 +1,13 @@
-// import axios from 'axios'
+import axios from 'axios'
 
-// export const useDatabaseMovieApi = () => ({
-//   getData: async (id: string) => {
-//     console.log(id)
-//     const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=c588fadd20c0db71341bc6404a868279`)
+const api = {
+  baseURL: `https://api.themoviedb.org/3`
+}
+export const dataBaseMovieApi = () => ({
+  getDataMovieApi: async (id: string | null): Promise<object> => {
+    const response = await axios.get(api.baseURL + `/search/movie?query=${id}&api_key=${import.meta.env.VITE_API_KEY}`)
+    console.log(response.data)
 
-//     return console.log(response.data)
-//   }
-// })
+    return response.data
+  }
+})

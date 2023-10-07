@@ -5,15 +5,14 @@ const api = axios.create({
 })
 
 export const useApi = () => ({
-  validateToken: async (token: string) => {
-    const response = await api.post('/validate', {token})
-
-    return response.data
-  },
   signin: async (email: string, password: string) => {
-    const response = await api.post('/login', {email, password})
+    try {
+      const response = await api.post('/login', {email, password})
+      return response.data
+    } catch (error) {
+      console.log(error)
+    }
     
-    return response.data
   },
   register: async (userRegister: object) => {
     const response = await api.post('/users', userRegister)
