@@ -1,0 +1,16 @@
+export type MovieDBResults = {
+  backdrop_path: string,
+  id: number,
+  overview: string,
+  poster_path: string,
+  release_date: string,
+  title: string,
+  genre_ids: object
+}
+
+export type MovieDB = {
+  page: number,
+  results: Array<MovieDBResults>
+  total_pages: number,
+  total_results: number
+}

@@ -10,7 +10,8 @@ module.exports = {
       colors: {
         greenDefault: '#219653',
         greenDefaultHover: '#1a7741',
-        redDefault: '#ff3333'
+        redDefault: '#ff3333',
+        gray: '#D9D5DA'
       }
     },
     

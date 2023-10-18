@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, InputHTMLAttributes } from "react"
+import { ChangeEvent, InputHTMLAttributes } from "react"
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string,

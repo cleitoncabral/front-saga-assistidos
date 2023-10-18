@@ -1,8 +1,23 @@
-export const SearchContent = ({searchResult}: {searchResult: object | null}) => {
-  console.log(searchResult)
+
+import { Card } from "../../components/Card/Card"
+import { MovieDBResults } from "../../types/MovieDB"
+import { useSearchResult } from "../UserAuth/UserAuth"
+
+export const SearchContent: React.FC = () => {
+  const searchResult = useSearchResult()
+
+  const content = searchResult?.results.map((item: MovieDBResults) => {return <Card key={item.id} searchResultItem={item}/> })
+
   return (
     <div>
-      <h1>conteudo</h1>
+      {
+        searchResult ?
+        <section>
+          {content}
+        </section>
+        : <h1>Carregando...</h1> 
+        
+      }
     </div>
   )
 }

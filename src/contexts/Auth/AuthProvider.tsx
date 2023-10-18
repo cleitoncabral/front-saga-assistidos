@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { AuthContext } from "./AuthContext"
 import { User } from "../../types/User"
 import { useApi } from "../../hooks/useApi"
