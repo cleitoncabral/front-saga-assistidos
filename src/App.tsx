@@ -7,7 +7,7 @@ import { Home } from './pages/Home'
 function App() {
   
   return (
-    <section className='text-white'>
+    <section className='h-full bg-black text-white'>
       <Routes>
         <Route path='/' element={<AuthForm />} />
         <Route path='home' element={ <RequiredAuth><UserAuth /></RequiredAuth>}> 

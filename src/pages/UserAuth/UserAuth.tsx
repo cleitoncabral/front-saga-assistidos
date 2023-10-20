@@ -31,10 +31,10 @@ export default function UserAuth () {
   return (
     <div>
       <Header isAuth={userAuth.user}>
-        <Input className='bg-gray border-0' type="text" id="search" onChange={(search) => handleSearch(search)} placeholder="Pesquisar filme" />
-        <Link to ="searchContent"><button onClick={searchContent}><AiOutlineSearch /></button></Link>
+        <Input className='bg-gray border-greenDefault m-0-auto w-full' type="text" id="search" onChange={(search) => handleSearch(search)} placeholder="Pesquisar filme" />
+        <Link className='bg-greenDefault h-9 -ml-2 mt-2 rounded-r-lg flex justify-center items-center w-8' to ="searchContent"><button onClick={searchContent}><AiOutlineSearch /></button></Link>
       </Header>
-      {searchResult ? <Outlet context={searchResult}/> : <h1>Conteúdo não encontrado</h1>}
+      <Outlet context={searchResult} />
     </div>
   )
 }

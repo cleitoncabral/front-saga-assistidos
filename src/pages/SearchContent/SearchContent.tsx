@@ -6,15 +6,11 @@ import { useSearchResult } from "../UserAuth/UserAuth"
 export const SearchContent: React.FC = () => {
   const searchResult = useSearchResult()
 
-  const content = searchResult?.results.map((item: MovieDBResults) => {return <Card key={item.id} searchResultItem={item}/> })
-
   return (
-    <div>
+    <div className="container max-w-4xl center mx-auto flex flex-row flex-wrap gap-10">
       {
         searchResult ?
-        <section>
-          {content}
-        </section>
+        searchResult?.results.map((item: MovieDBResults) => {return <Card key={item.id} searchResultItem={item}/> })
         : <h1>Carregando...</h1> 
         
       }
