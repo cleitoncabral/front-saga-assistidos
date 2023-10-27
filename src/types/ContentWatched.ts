@@ -1,7 +1,9 @@
+import { MovieDBResults } from "./MovieDB"
+
 export type ContentWatched = {
-  contentId: String,
+  contentId: number,
   rate: Number,
   comment: String,
-  contentWatchedItem?: Object,
+  contentWatchedItem?: MovieDBResults,
   user: Object
 } 

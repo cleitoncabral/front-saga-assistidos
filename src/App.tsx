@@ -4,6 +4,7 @@ import UserAuth from './pages/UserAuth/UserAuth'
 import { RequiredAuth } from './contexts/Auth/RequiredAuth'
 import { SearchContent } from './pages/SearchContent/SearchContent'
 import { Home } from './pages/Home'
+import { AddContent } from './pages/AddContent/AddContent'
 function App() {
   
   return (
@@ -12,7 +13,9 @@ function App() {
         <Route path='/' element={<AuthForm />} />
         <Route path='home' element={ <RequiredAuth><UserAuth /></RequiredAuth>}> 
           <Route path="/home" index element={<Home />} />
-          <Route path='searchContent'  element={<SearchContent/>} />
+          <Route path='searchContent'  element={<SearchContent />}>
+          </Route>
+            <Route path='searchContent/movie'  element={<AddContent />} />
         </Route>
       </Routes>
     </section>

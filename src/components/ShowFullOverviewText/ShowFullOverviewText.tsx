@@ -5,8 +5,8 @@ export const ShowFullOverviewText = ({content}: {content: string}) => {
   
   return (
     <>
-    {show ? content : <p className="font-bodyContent h-22 line-clamp-2">{content}</p>}
-    <button className="text-greenDefault font-bodyContent block">
+    {show ? <p className="font-bodyContent">{content}</p> : <p className="font-bodyContent h-22 line-clamp-2">{content}</p>}
+    <button className="text-greenDefault hover:text-green-900 font-bodyContent block">
       <a className="font-bodyContent cursor-pointer" onClick={() => setShow(!show)}>Mostrar {show ? 'menos' : 'mais'}</a>
     </button>
     </>

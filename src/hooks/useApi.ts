@@ -21,4 +21,17 @@ export const useApi = () => ({
   // logout: async () => {
 
   // }
+
+  createContent: async (content: object, userToken: string | null | undefined) => {
+    console.log(userToken)
+    const response = await api.post('/contentWatched/create', content, {
+      headers: {
+        'Authorization': 'Bearer ' + userToken,
+        'Content-Type': 'application/json'
+      }
+    })
+    console.log(response)
+
+    return response
+  }
 })

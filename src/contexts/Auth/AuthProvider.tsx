@@ -15,9 +15,7 @@ export const AuthProvider = ({children}: {children: JSX.Element}) => {
 
   const signin = async (email: string, password: string) => {
     const data = await api.signin(email, password)
-    if (data && data.token) {
-      await data.contentWatched.forEach((item: ContentWatched) => item.contentWatchedItem = getContentWatched.contentWatched(item.contentId))
-      
+    if (data && data.token) {    
       localStorage.setItem('user', data)
       localStorage.setItem('token', data.token)
       setUser(data)
@@ -46,8 +44,13 @@ export const AuthProvider = ({children}: {children: JSX.Element}) => {
     return false
   }
 
+  const createContent = async (content: object, userToken: string | null | undefined) => {
+    await api.createContent(content, userToken)
+    return true
+  }
+
   return (
-    <AuthContext.Provider value={{user, signin, signout, register}}> 
+    <AuthContext.Provider value={{user, signin, signout, register, createContent}}> 
       {children}
     </AuthContext.Provider>
   )
