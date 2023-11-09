@@ -22,7 +22,8 @@ export default function UserAuth () {
   }
 
   const searchContent = async () => {
-    const result = await getSearchData.getDataMovieApi(search)
+    const result = await getSearchData.getDataMovieApiByName(search)
+    console.log(result)
     setSearchResult(result)
   }
 

@@ -1,17 +1,5 @@
-// import axios from 'axios'
+// import { MovieDB } from "../types/MovieDB";
 
-// const api = axios.create ({
-//   baseURL: 'http://localhost:3003/api/contentWatched'
-// })
+// export const useUserContentWatched = (content: MovieDB) => ({
 
-// export const useUserContentWatched = () => ({
-//    getUserContentWatched: async (contentId:string, token:string) => {
-//     const config = {
-//       headers: {Authorization: token}
-//     }
-
-//     const response = await api.get(contentId, config)
-//     console.log(response.data)
-//     return response.data
-//    }
 // })

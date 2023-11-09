@@ -23,7 +23,6 @@ export const useApi = () => ({
   // }
 
   createContent: async (content: object, userToken: string | null | undefined) => {
-    console.log(userToken)
     const response = await api.post('/contentWatched/create', content, {
       headers: {
         'Authorization': 'Bearer ' + userToken,
@@ -31,6 +30,17 @@ export const useApi = () => ({
       }
     })
     console.log(response)
+
+    return response
+  },
+
+  getAllContentWatched: async (userToken: string | null | undefined) => {
+    const response = await api.get('/contentWatched', {
+      headers: {
+        'Authorization': 'Bearer ' + userToken,
+        'Content-Type': 'application/json'
+      }
+    })
 
     return response
   }
