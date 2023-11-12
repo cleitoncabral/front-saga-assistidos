@@ -10,12 +10,11 @@ export const SearchContent: React.FC = () => {
   const searchResult = useSearchResult()
   const userData = useContext(AuthContext)
   const [contentSearched, setContentSearched] = useState<MovieDB | null>(null)
+
   useEffect(() => {
-    console.log(userData.contentWatched)
     searchResult?.results.map((item: MovieDBResults) => {
       userData.contentWatched?.map((content: ContentWatched) => {
-        item.id == content.contentId ? item.reviewContent = content : false
-        
+        item.id == content.contentId ? item.reviewContent = content : false      
       })
     })
     setContentSearched(searchResult)

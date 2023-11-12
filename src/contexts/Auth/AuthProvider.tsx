@@ -47,14 +47,20 @@ export const AuthProvider = ({children}: {children: JSX.Element}) => {
   const createContent = async (content: object, userToken: string | null | undefined) => {
     const response = await api.createContent(content, userToken)
     const getAllContentWatched = await api.getAllContentWatched(userToken)
-    
     setContentWatched(getAllContentWatched.data)
     
     return true
   }
 
+  const deleteAllContentWatched = async (userToken: string | null | undefined) => {
+    const response = await api.deleteAllContentWatched(userToken)
+    setContentWatched(response.data)
+
+    return true
+  }
+
   return (
-    <AuthContext.Provider value={{user, contentWatched, signin, signout, register, createContent}}> 
+    <AuthContext.Provider value={{user, contentWatched, signin, signout, register, createContent, deleteAllContentWatched}}> 
       {children}
     </AuthContext.Provider>
   )

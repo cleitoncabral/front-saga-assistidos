@@ -43,5 +43,16 @@ export const useApi = () => ({
     })
 
     return response
+  },
+
+  deleteAllContentWatched: async (userToken: string | null | undefined) => {
+    const response = await api.delete('/contentWatched/deleteAll', {
+      headers: {
+        'Authorization': 'Bearer ' + userToken,
+        'Content-Type': 'application/json'
+      }
+    })
+
+    return response.data
   }
 })

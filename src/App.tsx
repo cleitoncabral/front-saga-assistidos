@@ -13,9 +13,9 @@ function App() {
         <Route path='/' element={<AuthForm />} />
         <Route path='home' element={ <RequiredAuth><UserAuth /></RequiredAuth>}> 
           <Route path="/home" index element={<Home />} />
-          <Route path='searchContent'  element={<SearchContent />}>
-          </Route>
-            <Route path='searchContent/movie'  element={<AddContent />} />
+          <Route path='searchContent'  element={<SearchContent />} />
+          <Route path='searchContent/movie'  element={<AddContent />} />
+          <Route path='/home/movie'  element={<AddContent />} />
         </Route>
       </Routes>
     </section>

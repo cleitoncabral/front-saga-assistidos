@@ -3,6 +3,7 @@ import { AuthContext } from "../../contexts/Auth/AuthContext";
 import { MovieDBResults } from "../../types/MovieDB";
 import { ContentWatched } from "../../types/ContentWatched";
 import { Input } from "../Input";
+import { FiEdit3 } from "react-icons/fi";
 
 type PropsRequest = {
   contentResult: MovieDBResults,
@@ -13,12 +14,12 @@ export const RateContent = (contentRequest: PropsRequest) => {
   const auth = useContext(AuthContext);
   
   const [rate, setRate] = useState<number | null>(null)
-  const [comment, setComment] = useState<string>()
+  const [comment, setComment] = useState<string | undefined>()
 
   useEffect(() => {
     contentRequest.contentResult.reviewContent?.rate && setRate(contentRequest.contentResult.reviewContent.rate)
     contentRequest.contentResult.reviewContent?.comment && setComment(contentRequest.contentResult.reviewContent.comment)
-  }, [])
+  }, [contentRequest])
 
   const handleNewRate = async () => {
     const response = await auth.createContent({contentId: contentRequest.contentResult.id, rate: 4, comment: comment}, contentRequest?.userToken)
@@ -28,7 +29,7 @@ export const RateContent = (contentRequest: PropsRequest) => {
   return (
     <div className="pt-12">
       <Input label={comment ? "Edite sua review:" :"Escreva uma review..." } onChange={(e) => setComment(e.target.value)} type="text" value={comment && comment} id="comment" />
-      <button className="bg-greenDefault bg-green-900:hover text-black font-bold px-10 py-2 rounded-lg" onClick={handleNewRate}>Salvar</button>
+      <button className="bg-greenDefault bg-green-900:hover text-black font-bold px-10 py-2 rounded-lg mt-6" onClick={handleNewRate}>{comment ? <span className="flex align-center">Editar <FiEdit3 className="mt-1 ml-2" /></span> :"Salvar" }</button>
     </div>
   )
 }
