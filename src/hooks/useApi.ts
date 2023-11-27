@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { ContentWatched } from '../types/ContentWatched'
+import { MovieDBResults } from '../types/MovieDB'
 
 const api = axios.create({
   baseURL: 'http://localhost:3003/api'
@@ -29,6 +31,18 @@ export const useApi = () => ({
         'Content-Type': 'application/json'
       }
     })
+
+    return response
+  },
+
+  updateContent: async (content: ContentWatched, id: string, userToken: string | null | undefined) => {
+    const response = await api.put('/contentWatched/update/' + id, content , {
+      headers: {
+        'Authorization': 'Bearer ' + userToken,
+        'Content-Type': 'application/json'
+      }
+    })
+
     console.log(response)
 
     return response
@@ -46,7 +60,7 @@ export const useApi = () => ({
   },
 
   deleteAllContentWatched: async (userToken: string | null | undefined) => {
-    const response = await api.delete('/contentWatched/deleteAll', {
+    const response = await api.delete('/delete/all', {
       headers: {
         'Authorization': 'Bearer ' + userToken,
         'Content-Type': 'application/json'

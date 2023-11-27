@@ -14,7 +14,7 @@ export const SearchContent: React.FC = () => {
   useEffect(() => {
     searchResult?.results.map((item: MovieDBResults) => {
       userData.contentWatched?.map((content: ContentWatched) => {
-        item.id == content.contentId ? item.reviewContent = content : false      
+        Number(item.id) == content.contentId ? item.reviewContent = content : false      
       })
     })
     setContentSearched(searchResult)

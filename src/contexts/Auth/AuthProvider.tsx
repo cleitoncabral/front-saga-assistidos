@@ -4,6 +4,7 @@ import { User } from "../../types/User"
 import { useApi } from "../../hooks/useApi"
 import { UserRegister } from "../../types/UserRegister"
 import { ContentWatched } from "../../types/ContentWatched"
+import { MovieDBResults } from "../../types/MovieDB"
 
 export const AuthProvider = ({children}: {children: JSX.Element}) => {
 
@@ -16,7 +17,7 @@ export const AuthProvider = ({children}: {children: JSX.Element}) => {
     if (data && data.token) {    
       localStorage.setItem('user', data)
       localStorage.setItem('token', data.token)
-
+      
       setUser(data)
       setContentWatched(data.contentWatched)
       setToken(data.token)
@@ -45,10 +46,18 @@ export const AuthProvider = ({children}: {children: JSX.Element}) => {
   }
 
   const createContent = async (content: object, userToken: string | null | undefined) => {
-    const response = await api.createContent(content, userToken)
+    await api.createContent(content, userToken)
     const getAllContentWatched = await api.getAllContentWatched(userToken)
     setContentWatched(getAllContentWatched.data)
     
+    return true
+  }
+
+  const updateContent = async (content: ContentWatched, id: string, userToken: string | null | undefined) => {
+    
+    const getAllContentWatched = await api.updateContent(content, id, userToken)
+    console.log(getAllContentWatched)
+    await setContentWatched(getAllContentWatched.data)
     return true
   }
 
@@ -60,7 +69,7 @@ export const AuthProvider = ({children}: {children: JSX.Element}) => {
   }
 
   return (
-    <AuthContext.Provider value={{user, contentWatched, signin, signout, register, createContent, deleteAllContentWatched}}> 
+    <AuthContext.Provider value={{user, contentWatched, signin, signout, register, createContent, updateContent, deleteAllContentWatched}}> 
       {children}
     </AuthContext.Provider>
   )

@@ -8,20 +8,27 @@ import { FiTrash2 } from 'react-icons/fi'
 export const Home = () => {
   const userAuth = useContext(AuthContext)
   const getSearchData = dataBaseMovieApi()
-  const [contentSaved, setContentSaved] = useState<Array<MovieDBResults>>()
+  const [contentSaved, setContentSaved] = useState<Array<MovieDBResults> | null>()
+  
+  console.log(userAuth.contentWatched)
 
   useEffect(() => {
     var resultArray: Array<MovieDBResults> = []
     const getDataFromApi = async () => {
       userAuth.contentWatched?.map(async (item) => {
-        const result = await getSearchData.getDataMovieApiById(item.contentId)
-        result.reviewContent = item
-        resultArray = [...resultArray, result]
-        setContentSaved(resultArray)
+        if (item) {
+          const result = await getSearchData.getDataMovieApiById(item.contentId)
+          result.reviewContent = item
+          resultArray = [...resultArray, result]
+          setContentSaved(resultArray)
+        } else {
+          setContentSaved(null)
+          return false
+        }
       })
     }
     getDataFromApi()
-  }, [userAuth])
+  }, [userAuth.contentWatched])
   
   const handleDelete = async () => {
     await userAuth.deleteAllContentWatched(userAuth.user?.token)
@@ -34,7 +41,7 @@ export const Home = () => {
         <button className='w-auto ml-auto mr-5 text-end block mt-10 mb-5' onClick={handleDelete}><FiTrash2 size="1.7em" className=' stroke-greenDefault'/></button>
       </>
       <div className='container flex flex-row justify-center flex-wrap gap-10'>
-        {contentSaved ? contentSaved.map((item: MovieDBResults) => { return <Card key={item.id} searchResultItem={item} />}) : <h2>Carregando...</h2>}
+        {contentSaved == null ? <h1>Não tem</h1> : (contentSaved ? contentSaved.map((item: MovieDBResults) => { return <Card key={item.id} searchResultItem={item} />}) : <h2>Carregando...</h2>)}
       </div>
     </section>
   )

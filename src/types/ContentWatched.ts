@@ -2,8 +2,9 @@ import { MovieDBResults } from "./MovieDB"
 
 export type ContentWatched = {
   contentId: number,
-  rate: number,
-  comment: string,
+  id: string,
+  rate: number, 
+  comment: string | undefined,
   contentWatchedItem?: MovieDBResults,
-  user: Object
+  user?: Object
 } 

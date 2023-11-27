@@ -2,13 +2,13 @@ import { ContentWatched } from "./ContentWatched"
 
 export interface MovieDBResults {
   backdrop_path: string,
-  id: number,
+  id: string,
   overview: string,
   poster_path: string,
   release_date: string,
   title: string,
   genre_ids: object,
-  reviewContent?: ContentWatched 
+  reviewContent: ContentWatched 
 }
 
 export type MovieDB = {
