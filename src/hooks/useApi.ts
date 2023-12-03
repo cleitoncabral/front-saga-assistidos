@@ -42,9 +42,21 @@ export const useApi = () => ({
         'Content-Type': 'application/json'
       }
     })
+    
+    console.log(response)
+    
+    return response
+  },
+  
+  deleteContentWatched: async (id: string, userToken: string | null | undefined) => {
+    const response = await api.delete('/contentWatched/delete/' + id, {
+      headers: {
+        'Authorization': 'Bearer ' + userToken,
+        'Content-Type': 'application/json'
+      }
+    })
 
     console.log(response)
-
     return response
   },
 
@@ -60,7 +72,7 @@ export const useApi = () => ({
   },
 
   deleteAllContentWatched: async (userToken: string | null | undefined) => {
-    const response = await api.delete('/delete/all', {
+    const response = await api.delete('/contentWatched/deleteAll', {
       headers: {
         'Authorization': 'Bearer ' + userToken,
         'Content-Type': 'application/json'

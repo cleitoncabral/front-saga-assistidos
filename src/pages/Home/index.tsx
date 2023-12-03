@@ -21,8 +21,10 @@ export const Home = () => {
           result.reviewContent = item
           resultArray = [...resultArray, result]
           setContentSaved(resultArray)
+          console.log(contentSaved)
         } else {
           setContentSaved(null)
+          console.log(userAuth.contentWatched)
           return false
         }
       })
@@ -32,6 +34,7 @@ export const Home = () => {
   
   const handleDelete = async () => {
     await userAuth.deleteAllContentWatched(userAuth.user?.token)
+    setContentSaved(null)
   }
 
   return (
@@ -41,7 +44,7 @@ export const Home = () => {
         <button className='w-auto ml-auto mr-5 text-end block mt-10 mb-5' onClick={handleDelete}><FiTrash2 size="1.7em" className=' stroke-greenDefault'/></button>
       </>
       <div className='container flex flex-row justify-center flex-wrap gap-10'>
-        {contentSaved == null ? <h1>Não tem</h1> : (contentSaved ? contentSaved.map((item: MovieDBResults) => { return <Card key={item.id} searchResultItem={item} />}) : <h2>Carregando...</h2>)}
+        {contentSaved == null ? <h1>Sem conteúdo salvo :(</h1> : (contentSaved ? contentSaved.map((item: MovieDBResults) => { return <Card key={item.id} searchResultItem={item} />}) : <h2>Carregando...</h2>)}
       </div>
     </section>
   )

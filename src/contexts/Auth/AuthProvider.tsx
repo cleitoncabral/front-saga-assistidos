@@ -54,10 +54,16 @@ export const AuthProvider = ({children}: {children: JSX.Element}) => {
   }
 
   const updateContent = async (content: ContentWatched, id: string, userToken: string | null | undefined) => {
-    
     const getAllContentWatched = await api.updateContent(content, id, userToken)
     console.log(getAllContentWatched)
     await setContentWatched(getAllContentWatched.data)
+    return true
+  }
+
+  const deleteContent = async (id: string, userToken: string | null | undefined) => {
+    const deleteContentWatched = await api.deleteContentWatched(id, userToken)
+    setContentWatched(deleteContentWatched.data)
+    console.log(deleteContentWatched)
     return true
   }
 
@@ -69,7 +75,7 @@ export const AuthProvider = ({children}: {children: JSX.Element}) => {
   }
 
   return (
-    <AuthContext.Provider value={{user, contentWatched, signin, signout, register, createContent, updateContent, deleteAllContentWatched}}> 
+    <AuthContext.Provider value={{user, contentWatched, signin, signout, register, createContent, updateContent, deleteContent, deleteAllContentWatched}}> 
       {children}
     </AuthContext.Provider>
   )

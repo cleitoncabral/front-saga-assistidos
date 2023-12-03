@@ -25,6 +25,8 @@ export const RateContent = (contentRequest: PropsRequest) => {
     return response
   }
 
+  console.log(contentRequest.contentResult)
+
   const handleRateUpdate = async () => {
     console.log(contentRequest.contentResult.reviewContent)
     const response = await auth.updateContent({contentId: Number(contentRequest.contentResult.id), rate: 4, comment: comment, id: contentRequest.contentResult.reviewContent.id}, contentRequest.contentResult.reviewContent.id, contentRequest?.userToken)
@@ -35,7 +37,7 @@ export const RateContent = (contentRequest: PropsRequest) => {
   return (
     <div className="pt-12">
       <Input label={contentRequest.contentResult.reviewContent?.comment ? "Edite sua review:" :"Escreva uma review..." } onChange={(e) => setComment(e.target.value)} type="text" value={comment && comment} id="comment" />
-      <button className="bg-greenDefault bg-green-900:hover text-black font-bold px-10 py-2 rounded-lg mt-6" onClick={contentRequest.contentResult.reviewContent?.comment ? handleRateUpdate : handleNewRate}>{contentRequest.contentResult.reviewContent?.comment ? <span className="flex align-center">Editar <FiEdit3 className="mt-1 ml-2" /></span> :"Salvar" }</button>
+      <button className="bg-greenDefault bg-green-900:hover text-black font-bold px-10 py-2 rounded-lg mt-6" onClick={contentRequest.contentResult.reviewContent?.comment ? handleRateUpdate : handleNewRate}>{contentRequest.contentResult.reviewContent?.comment ? <span className="flex align-center">Editar <FiEdit3 className="mt-1 ml-2" /></span> : "Salvar" }</button>
     </div>
   )
 }

@@ -6,20 +6,22 @@ import { FiArrowLeft, FiTrash2 } from "react-icons/fi"
 import { useNavigate  } from "react-router-dom";
 
 export const AddContent = () => {
-  const { user } = useContext(AuthContext)
-  const { contentWatched } = useContext(AuthContext)
+  const { user, deleteContent, contentWatched } = useContext(AuthContext)
   let { state } = useLocation()
   let navigate = useNavigate ();
-  console.log(state)
-  console.log(contentWatched)
+  
   const hasRate = user?.contentWatched.filter((item) => item.contentId == user.id)
 
   useEffect(() => {
-    state.reviewContent = contentWatched?.filter((item) => item.id == state.id)
-    console.log(state)
+    state.reviewContent = contentWatched?.filter((item) => item.contentId == state.id)
   }, [contentWatched])
 
   function handleBackPage () {
+    navigate(-1)
+  }
+  
+  function handleDeleteItem () {
+    deleteContent(state.reviewContent[0].id, user?.token)
     navigate(-1)
   }
   return (
@@ -27,7 +29,7 @@ export const AddContent = () => {
 
       <nav className="flex justify-between mb-12">
         <button onClick={handleBackPage}><FiArrowLeft size="2.2em" className='w-full hover:bg-transparent bg-greenDefault hover:stroke-greenDefault stroke-grayCard border-2 border-greenDefault rounded-md'/> </button>
-        {hasRate && <h1 className="bg-greenDefault hover:bg-transparent border-2 border-greenDefault rounded-md p-1"><FiTrash2 size="1.7em" className='w-full hover:stroke-greenDefault stroke-grayCard'/></h1>}
+        {hasRate && <button onClick={handleDeleteItem} className="bg-greenDefault hover:bg-transparent border-2 border-greenDefault rounded-md p-1"><FiTrash2 size="1.7em" className='w-full hover:stroke-greenDefault stroke-grayCard'/></button>}
       </nav>
       <div className="content flex">
         <img src={'https://image.tmdb.org/t/p/original/'+state.poster_path} className="max-w-xs h-full" alt="" />
