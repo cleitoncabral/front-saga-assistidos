@@ -18,6 +18,7 @@ export const RateContent = (contentRequest: PropsRequest) => {
   useEffect(() => {
     contentRequest.contentResult.reviewContent?.rate && setRate(contentRequest.contentResult.reviewContent.rate)
     contentRequest.contentResult.reviewContent?.comment && setComment(contentRequest.contentResult.reviewContent.comment)
+    console.log(contentRequest.contentResult)
   }, [contentRequest, auth])
   
   const handleNewRate = async () => {
@@ -25,7 +26,6 @@ export const RateContent = (contentRequest: PropsRequest) => {
     return response
   }
 
-  console.log(contentRequest.contentResult)
 
   const handleRateUpdate = async () => {
     console.log(contentRequest.contentResult.reviewContent)

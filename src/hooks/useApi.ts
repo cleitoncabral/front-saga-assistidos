@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { ContentWatched } from '../types/ContentWatched'
-import { MovieDBResults } from '../types/MovieDB'
 
 const api = axios.create({
   baseURL: 'http://localhost:3003/api'
@@ -16,6 +15,7 @@ export const useApi = () => ({
     }
     
   },
+
   register: async (userRegister: object) => {
     const response = await api.post('/users', userRegister)
     return response.data
@@ -25,13 +25,13 @@ export const useApi = () => ({
   // }
 
   createContent: async (content: object, userToken: string | null | undefined) => {
+    console.log(content)
     const response = await api.post('/contentWatched/create', content, {
       headers: {
         'Authorization': 'Bearer ' + userToken,
         'Content-Type': 'application/json'
       }
     })
-
     return response
   },
 
