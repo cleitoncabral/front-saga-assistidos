@@ -1,20 +1,16 @@
-import { Link, useLocation } from "react-router-dom"
-import { useContext, useEffect } from 'react'
+import { useLocation } from "react-router-dom"
+import { useContext } from 'react'
 import { AuthContext } from "../../contexts/Auth/AuthContext"
 import { RateContent } from "../../components/RateContent/RateContent"
 import { FiArrowLeft, FiTrash2 } from "react-icons/fi"
 import { useNavigate  } from "react-router-dom";
 
 export const AddContent = () => {
-  const { user, deleteContent, contentWatched } = useContext(AuthContext)
+  const { user, deleteContent } = useContext(AuthContext)
   let { state } = useLocation()
   let navigate = useNavigate ();
   
   const hasRate = user?.contentWatched.filter((item) => item.contentId == user.id)
-
-  useEffect(() => {
-    state.reviewContent = contentWatched?.filter((item) => item.contentId == state.id)
-  }, [contentWatched])
 
   function handleBackPage () {
     navigate(-1)
