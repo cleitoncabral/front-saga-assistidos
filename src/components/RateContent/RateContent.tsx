@@ -28,6 +28,12 @@ export const RateContent = (contentRequest: PropsRequest) => {
   
   const handleNewRate = async () => {
     const response = await auth.createContent({contentId: contentRequest.contentResult.id, rate: 4, comment: comment}, contentRequest?.userToken)
+    const feedbackContent = {
+      feedbackType: response,
+      feedbackContent: 'criada'
+    }
+
+    setFeedback(feedbackContent)
     return response
   }
 

@@ -63,13 +63,13 @@ export const AuthProvider = ({children}: {children: JSX.Element}) => {
   const deleteContent = async (id: string, userToken: string | null | undefined) => {
     const deleteContentWatched = await api.deleteContentWatched(id, userToken)
     setContentWatched(deleteContentWatched.data)
-    console.log(deleteContentWatched)
+    
     return true
   }
 
-  const deleteAllContentWatched = async (userToken: string | null | undefined) => {
-    const response = await api.deleteAllContentWatched(userToken)
-    setContentWatched(response.data)
+  const deleteAllContentWatched = async (user: User | null) => {
+    const response = await api.deleteAllContentWatched(user)
+    setContentWatched(null)
 
     return true
   }

@@ -56,6 +56,7 @@ export const AuthForm: React.FC = () => {
         }
          if (userRegister) {
           const isRegistered = await auth.register(userRegister) 
+          console.log(isRegistered)
           if (isRegistered) {
             const isLogged = await auth.signin(email, password)
         

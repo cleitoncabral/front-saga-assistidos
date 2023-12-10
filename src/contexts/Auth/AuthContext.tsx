@@ -13,7 +13,7 @@ export type AuthContextType = {
   createContent: (content: object, userToken: string | null | undefined) => Promise<boolean>
   updateContent: (content: ContentWatched, id: string, userToken: string | null | undefined) => Promise<boolean>
   deleteContent: (id: string, userToken: string | null | undefined) => Promise<boolean>
-  deleteAllContentWatched: (userToken: string | null | undefined) => Promise<boolean>
+  deleteAllContentWatched: (user: User | null) => Promise<boolean>
 }
 
 export const AuthContext = createContext<AuthContextType>(null!)

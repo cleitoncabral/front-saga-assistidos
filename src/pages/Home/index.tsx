@@ -6,44 +6,59 @@ import { MovieDBResults } from '../../types/MovieDB'
 import { FiTrash2 } from 'react-icons/fi'
 
 export const Home = () => {
-  const userAuth = useContext(AuthContext)
+  const {contentWatched, user, deleteAllContentWatched} = useContext(AuthContext)
   const getSearchData = dataBaseMovieApi()
   const [contentSaved, setContentSaved] = useState<Array<MovieDBResults> | null>()
-  
-  console.log(userAuth.contentWatched)
+
+  // const [preventContentWatched, setPreventContentWatched] = useState(contentWatched)
+  // console.log(preventContentWatched)
+  // console.log(contentWatched)
+  // if (contentWatched !== preventContentWatched) {
+  //   var resultArray: Array<MovieDBResults> = []
+  //   setPreventContentWatched(contentWatched)
+  //   contentWatched?.map(async (item) => {
+  //     if (item) {
+  //       const result = await getSearchData.getDataMovieApiById(item.contentId)
+  //       result.reviewContent = item
+  //       resultArray = [...resultArray, result]
+  //       return setContentSaved(resultArray)
+  //     }
+      
+  //     return setContentSaved(null)
+  //   })
+  // }
+
 
   useEffect(() => {
     var resultArray: Array<MovieDBResults> = []
     const getDataFromApi = async () => {
-      userAuth.contentWatched?.map(async (item) => {
+      contentWatched?.map(async (item) => {
         if (item) {
           const result = await getSearchData.getDataMovieApiById(item.contentId)
           result.reviewContent = item
           resultArray = [...resultArray, result]
           setContentSaved(resultArray)
-          console.log(contentSaved)
         } else {
           setContentSaved(null)
-          console.log(userAuth.contentWatched)
           return false
         }
       })
     }
     getDataFromApi()
-  }, [userAuth.contentWatched])
+  }, [contentWatched])
   
   const handleDelete = async () => {
-    await userAuth.deleteAllContentWatched(userAuth.user?.token)
-    setContentSaved(null)
+    const response = await deleteAllContentWatched(user)
+    response && setContentSaved(null)
   }
 
   return (
     <section className='container max-w-4xl center mx-auto justify-center'>
       <>
-        <h1 className='center text-3xl text-start'>Boas vindas, {userAuth.user?.name}</h1>
-        <button className='w-auto ml-auto mr-5 text-end block mt-10 mb-5' onClick={handleDelete}><FiTrash2 size="1.7em" className=' stroke-greenDefault'/></button>
+        <h1 className='center text-3xl text-start'>Boas vindas, {user?.name}</h1>
+        {contentSaved && <button className='w-auto ml-auto mr-5 text-end block mt-10 mb-5' onClick={handleDelete}><FiTrash2 size="1.7em" className=' stroke-greenDefault'/></button>}
       </>
-      <div className='container flex flex-row justify-center flex-wrap gap-10'>
+      <div className='container flex flex-row justify-center flex-wrap gap-10 mt-10'>
         {contentSaved == null ? <h1>Sem conteúdo salvo :(</h1> : (contentSaved ? contentSaved.map((item: MovieDBResults) => { return <Card key={item.id} searchResultItem={item} />}) : <h2>Carregando...</h2>)}
       </div>
     </section>

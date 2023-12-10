@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { ContentWatched } from '../types/ContentWatched'
+import { User } from '../types/User'
 
 const api = axios.create({
   baseURL: 'http://localhost:3003/api'
@@ -17,7 +18,7 @@ export const useApi = () => ({
   },
 
   register: async (userRegister: object) => {
-    const response = await api.post('/users', userRegister)
+    const response = await api.post('/users/register', userRegister)
     return response.data
   },
   // logout: async () => {
@@ -42,8 +43,6 @@ export const useApi = () => ({
         'Content-Type': 'application/json'
       }
     })
-    
-    console.log(response)
     
     return response
   },
@@ -71,12 +70,13 @@ export const useApi = () => ({
     return response
   },
 
-  deleteAllContentWatched: async (userToken: string | null | undefined) => {
+  deleteAllContentWatched: async (user: User | null) => {
     const response = await api.delete('/contentWatched/deleteAll', {
       headers: {
-        'Authorization': 'Bearer ' + userToken,
+        'Authorization': 'Bearer ' + user?.token,
         'Content-Type': 'application/json'
-      }
+      },
+      data: {user}
     })
 
     return response.data
