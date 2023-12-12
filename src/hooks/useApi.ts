@@ -7,7 +7,7 @@ const api = axios.create({
 })
 
 export const useApi = () => ({
-  signin: async (email: string, password: string) => {
+  login: async (email: string, password: string) => {
     try {
       const response = await api.post('/login', {email, password})
       return response.data
@@ -17,16 +17,40 @@ export const useApi = () => ({
     
   },
 
+  autoLogin: async (token: string | null) => {
+    console.log(token)
+    if(token) {
+      const response = await api.get('/login/autoLogin', {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Content-Type': 'application/json'
+        }
+      })
+      
+      return response
+    }
+
+    return false
+  },
+
   register: async (userRegister: object) => {
     const response = await api.post('/users/register', userRegister)
     return response.data
   },
-  // logout: async () => {
 
-  // }
+  logout: async (userToken: string | null) => {
+    console.log(userToken)
+    const response = await api.post('/login/logout', {
+      headers: {
+        'Authorization': 'Bearer ' + userToken,
+        'Content-Type': 'application/json'
+      }
+    })
+
+    return response
+  },
 
   createContent: async (content: object, userToken: string | null | undefined) => {
-    console.log(content)
     const response = await api.post('/contentWatched/create', content, {
       headers: {
         'Authorization': 'Bearer ' + userToken,

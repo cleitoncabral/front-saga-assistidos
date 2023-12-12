@@ -1,4 +1,4 @@
-import {useState, useContext, ChangeEvent, FormEvent} from 'react'
+import {useState, useContext, ChangeEvent, FormEvent, useEffect} from 'react'
 import { Input } from "../../components/Input"
 import { Header } from "../../components/Header"
 import { Button } from '../../components/Button'
@@ -33,11 +33,19 @@ export const AuthForm: React.FC = () => {
     setPassword(e.target.value)
   }
 
+  useEffect(() => {
+    async function autoLogin () {
+      const response = await auth.autoLogin()
+    }
+
+    autoLogin()
+  }, [])
+
   const handleAuth = async (e: FormEvent) => {
     e.preventDefault()
     try {
       if (variant === 'LOGIN' && email && password) {
-        const isLogged = await auth.signin(email, password)
+        const isLogged = await auth.login(email, password)
         
         if (isLogged) {
           navigate('/home');
@@ -58,7 +66,7 @@ export const AuthForm: React.FC = () => {
           const isRegistered = await auth.register(userRegister) 
           console.log(isRegistered)
           if (isRegistered) {
-            const isLogged = await auth.signin(email, password)
+            const isLogged = await auth.login(email, password)
         
             if (isLogged) {
               navigate('/home');
