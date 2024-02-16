@@ -15,5 +15,6 @@ export type MovieDB = {
   page: number,
   results: Array<MovieDBResults>
   total_pages: number,
-  total_results: number
+  total_results: number,
+  cleanInput?: MouseEvent
 }

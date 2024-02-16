@@ -15,6 +15,7 @@ export default function UserAuth () {
   const getSearchData = dataBaseMovieApi()
   const [search, setSearch] = useState<string | null>(null)
   const [searchResult, setSearchResult] = useState<MovieDB>()
+  const [valueInput, setValueInput] = useState<string>()
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -24,15 +25,20 @@ export default function UserAuth () {
   const searchContent = async () => {
     const result = await getSearchData.getDataMovieApiByName(search)
     setSearchResult(result)
+    setValueInput(undefined)
+  }
+
+  function cleanInput () {
+    setValueInput('')
   }
 
   return (
     <>
       <Header isAuth={userAuth.user}>
-        <Input className='bg-gray border-greenDefault m-0-auto w-full' type="text" id="search" onChange={(search) => handleSearch(search)} placeholder="Pesquisar filme" />
+        <Input className='bg-gray border-greenDefault m-0-auto w-full' value={valueInput} type="text" id="search" onChange={(search) => handleSearch(search)} placeholder="Pesquisar filme" />
         <Link className='bg-greenDefault h-9 -ml-2 mt-2 rounded-r-lg flex justify-center items-center w-8' to ="searchContent"><button onClick={searchContent}><AiOutlineSearch /></button></Link>
       </Header>
-      <Outlet context={searchResult} />
+      <Outlet context={searchResult}  />
     </>
   )
 }

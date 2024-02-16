@@ -4,7 +4,6 @@ import { User } from "../../types/User"
 import { useApi } from "../../hooks/useApi"
 import { UserRegister } from "../../types/UserRegister"
 import { ContentWatched } from "../../types/ContentWatched"
-import { MovieDBResults } from "../../types/MovieDB"
 
 export const AuthProvider = ({children}: {children: JSX.Element}) => {
 
@@ -53,11 +52,7 @@ export const AuthProvider = ({children}: {children: JSX.Element}) => {
   const register = async (userRegister: UserRegister) => {
     const data = await api.register(userRegister)
 
-    if(data) {
-      return true
-    }
-
-    return false
+    return data ? true : false
   }
 
   const createContent = async (content: object, userToken: string | null | undefined) => {

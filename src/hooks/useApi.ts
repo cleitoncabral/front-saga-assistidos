@@ -8,13 +8,8 @@ const api = axios.create({
 
 export const useApi = () => ({
   login: async (email: string, password: string) => {
-    try {
-      const response = await api.post('/login', {email, password})
-      return response.data
-    } catch (error) {
-      console.log(error)
-    }
-    
+    const response = await api.post('/login', {email, password})
+    return response.data
   },
 
   autoLogin: async (token: string | null) => {

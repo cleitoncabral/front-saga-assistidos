@@ -5,6 +5,7 @@ import { Input } from "../Input";
 import { FiEdit3 } from "react-icons/fi";
 import { FeedbackHandler } from "../FeedbackHandler/FeedbackHandler";
 import { Feedback } from "../../types/Feedback";
+import { StarsRating } from "../StarsRating/StarsRating";
 
 type PropsRequest = {
   contentResult: MovieDBResults,
@@ -14,7 +15,7 @@ type PropsRequest = {
 export const RateContent = (contentRequest: PropsRequest) => {
   const auth = useContext(AuthContext);
   
-  const [rate, setRate] = useState<number | null>(null)
+  const [rate, setRate] = useState<number>(0)
   const [comment, setComment] = useState<string | undefined>()
 
   const [feedback, setFeedback] = useState<Feedback | null>(null)
@@ -25,9 +26,13 @@ export const RateContent = (contentRequest: PropsRequest) => {
     contentReviewd?.rate && setRate(contentReviewd.rate)
     contentReviewd?.comment && setComment(contentReviewd.comment)
   }, [auth])
+
+  function handleRating (rate: number) {
+    setRate(rate)
+  }
   
   const handleNewRate = async () => {
-    const response = await auth.createContent({contentId: contentRequest.contentResult.id, rate: 4, comment: comment}, contentRequest?.userToken)
+    const response = await auth.createContent({contentId: contentRequest.contentResult.id, rate: rate, comment: comment}, contentRequest?.userToken)
     const feedbackContent = {
       feedbackType: response,
       feedbackContent: 'criada'
@@ -51,6 +56,7 @@ export const RateContent = (contentRequest: PropsRequest) => {
 
   return (
     <div className="pt-12">
+      <StarsRating handleRating={handleRating} rate={rate} />
       <Input label={contentRequest.contentResult.reviewContent?.comment ? "Edite sua review:" :"Escreva uma review..." } onChange={(e) => setComment(e.target.value)} type="text" value={comment && comment} id="comment" />
       <button className="bg-greenDefault bg-green-900:hover text-black font-bold px-10 py-2 rounded-lg mt-6" onClick={contentRequest.contentResult.reviewContent?.comment ? handleRateUpdate : handleNewRate}>{contentRequest.contentResult.reviewContent?.comment ? <span className="flex align-center">Editar <FiEdit3 className="mt-1 ml-2" /></span> : "Salvar" }</button>
       <FeedbackHandler feedbackData={feedback} />

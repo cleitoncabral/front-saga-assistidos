@@ -10,25 +10,6 @@ export const Home = () => {
   const getSearchData = dataBaseMovieApi()
   const [contentSaved, setContentSaved] = useState<Array<MovieDBResults> | null>()
 
-  // const [preventContentWatched, setPreventContentWatched] = useState(contentWatched)
-  // console.log(preventContentWatched)
-  // console.log(contentWatched)
-  // if (contentWatched !== preventContentWatched) {
-  //   var resultArray: Array<MovieDBResults> = []
-  //   setPreventContentWatched(contentWatched)
-  //   contentWatched?.map(async (item) => {
-  //     if (item) {
-  //       const result = await getSearchData.getDataMovieApiById(item.contentId)
-  //       result.reviewContent = item
-  //       resultArray = [...resultArray, result]
-  //       return setContentSaved(resultArray)
-  //     }
-      
-  //     return setContentSaved(null)
-  //   })
-  // }
-
-
   useEffect(() => {
     var resultArray: Array<MovieDBResults> = []
     const getDataFromApi = async () => {

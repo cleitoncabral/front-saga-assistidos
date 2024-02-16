@@ -35,7 +35,7 @@ export const AuthForm: React.FC = () => {
 
   useEffect(() => {
     async function autoLogin () {
-      const response = await auth.autoLogin()
+      await auth.autoLogin()
     }
 
     autoLogin()
@@ -43,41 +43,37 @@ export const AuthForm: React.FC = () => {
 
   const handleAuth = async (e: FormEvent) => {
     e.preventDefault()
-    try {
-      if (variant === 'LOGIN' && email && password) {
-        const isLogged = await auth.login(email, password)
-        
-        if (isLogged) {
-          navigate('/home');
-        } 
-        // else {
-        //   setError('Dados de Login inválidos')
-        //   console.log(error)
-        // }
+
+    if (variant === 'LOGIN' && email && password) {
+      try {
+        await auth.login(email, password)
+        navigate('/home');
+
+      } catch (error: any) {
+        setError(error.response.data.message)
       }
+    }
   
-      if (variant === 'REGISTER') {
-        const userRegister = {
-          name,
-          email,
-          password
-        }
-         if (userRegister) {
-          const isRegistered = await auth.register(userRegister) 
-          console.log(isRegistered)
-          if (isRegistered) {
-            const isLogged = await auth.login(email, password)
-        
-            if (isLogged) {
-              navigate('/home');
-            } else {
-              setError('Dados de Login inválidos')
-            }
-          }
-         }
+    if (variant === 'REGISTER') {
+      const userRegister = {
+        name,
+        email,
+        password
       }
-    } catch (error: any) {
-      setError(error)
+
+      if (!userRegister) return setError('Preencha todos os campos')
+
+      try {
+        const isRegistered = await auth.register(userRegister) 
+        
+        if (isRegistered) {
+          await auth.login(email, password)
+          navigate('/home');
+        }
+
+      } catch (error: any) {
+      setError(error.response.data.error)
+      }
     }
   }
   
@@ -108,7 +104,7 @@ export const AuthForm: React.FC = () => {
             {variant === 'LOGIN' ? 'Primeira vez aqui?' : 'Já tem uma conta?'}
           </div>
 
-          <div onClick={() => variant === 'LOGIN' ? setvariant('REGISTER') : setvariant('LOGIN')} className='text-gray-500 underline cursor-pointer'>
+          <div onClick={() => variant === 'LOGIN' ? (setvariant('REGISTER'), setError('')) : (setvariant('LOGIN'), setError(''))} className='text-gray-500 underline cursor-pointer'>
             {variant === 'LOGIN' ? 'Crie uma conta!' : 'Fazer Login'}
           </div>
         </div>
