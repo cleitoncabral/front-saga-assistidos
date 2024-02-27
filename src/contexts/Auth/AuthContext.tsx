@@ -5,15 +5,15 @@ import { ContentWatched } from '../../types/ContentWatched'
 
 export type AuthContextType = {
   user: User | null
-  contentWatched: Array<ContentWatched> | null
+  register: (userRegister: UserRegister) => Promise<boolean>
   login: (email: string, password: string) => Promise<boolean>
   autoLogin: () => Promise<boolean>
+  contentWatched: Array<ContentWatched> | null
   logout: () => void
-  register: (userRegister: UserRegister) => Promise<boolean>
-  createContent: (content: object, userToken: string | null | undefined) => Promise<boolean>
-  updateContent: (content: ContentWatched, id: string, userToken: string | null | undefined) => Promise<boolean>
-  deleteContent: (id: string, userToken: string | null | undefined) => Promise<boolean>
-  deleteAllContentWatched: (user: User | null) => Promise<boolean>
+  // createContent: (content: object, userToken: string) => Promise<boolean>
+  // updateContent: (content: ContentWatched, id: string, userToken: string) => Promise<boolean>
+  // deleteContent: (id: string, userToken: string) => Promise<boolean>
+  // deleteAllContentWatched: (user: User | null) => Promise<boolean>
 }
 
 export const AuthContext = createContext<AuthContextType>(null!)

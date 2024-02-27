@@ -1,10 +1,4 @@
-import {Route, RouterProvider, Routes} from 'react-router-dom'
-import { AuthForm } from './pages/AuthForm/AuthForm'
-import UserAuth from './pages/UserAuth/UserAuth'
-import { RequiredAuth } from './contexts/Auth/RequiredAuth'
-import { SearchContent } from './pages/SearchContent/SearchContent'
-import { Home } from './pages/Home'
-import { AddContent } from './pages/AddContent/AddContent'
+import {RouterProvider} from 'react-router-dom'
 import { router } from './router/router'
 function App() {
   

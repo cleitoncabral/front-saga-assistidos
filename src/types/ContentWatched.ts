@@ -4,7 +4,7 @@ export type ContentWatched = {
   contentId: number,
   id: string,
   rate: number, 
-  comment: string | undefined,
+  comment?: string,
   contentWatchedItem?: MovieDBResults,
   user?: Object
 } 

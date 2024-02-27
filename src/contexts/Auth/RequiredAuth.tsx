@@ -1,12 +1,17 @@
-import {useContext} from 'react'
+import {PropsWithChildren, useContext, useEffect} from 'react'
 import { AuthContext } from './AuthContext'
-import { AuthForm } from '../../pages/AuthForm/AuthForm'
+import { Outlet, useNavigate, useOutletContext, useParams } from 'react-router-dom'
 
-export const RequiredAuth = ({children}: {children: JSX.Element}) => {
-  const auth = useContext(AuthContext)
+export const RequiredAuth = () => {
+  const {user} = useContext(AuthContext)
+  const context = useOutletContext()
+  const navigate = useNavigate()
 
-  if(!auth.user) {
-    return <AuthForm />
-  }
-  return children
+  useEffect(() => {
+    if(user === null) {
+      navigate('/', {replace: true})
+    }
+  }, [navigate, user])
+
+  return <Outlet context={context} />
 }

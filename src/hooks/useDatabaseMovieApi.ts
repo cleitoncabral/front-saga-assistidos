@@ -7,7 +7,6 @@ const api = {
 export const dataBaseMovieApi = () => ({
   getDataMovieApiByName: async (id: string | null): Promise<MovieDB> => {
     const response = await axios.get(api.baseURL + `/search/movie?query=${id}&api_key=${import.meta.env.VITE_API_KEY}`)
-    console.log(response.data)
     return response.data
   },
 

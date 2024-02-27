@@ -1,5 +1,5 @@
 
-import {Outlet, useOutletContext} from 'react-router-dom'
+import {LoaderFunction, LoaderFunctionArgs, Outlet, useOutletContext} from 'react-router-dom'
 import { Header } from '../../components/Header'
 import { AuthContext } from "../../contexts/Auth/AuthContext"
 import { useState, ChangeEvent, useContext } from "react"
@@ -34,11 +34,12 @@ export default function UserAuth () {
 
   return (
     <>
-      <Header isAuth={userAuth.user}>
+      {/* <Header isAuth={userAuth.user}>
         <Input className='bg-gray border-greenDefault m-0-auto w-full' value={valueInput} type="text" id="search" onChange={(search) => handleSearch(search)} placeholder="Pesquisar filme" />
         <Link className='bg-greenDefault h-9 -ml-2 mt-2 rounded-r-lg flex justify-center items-center w-8' to ="searchContent"><button onClick={searchContent}><AiOutlineSearch /></button></Link>
       </Header>
-      <Outlet context={searchResult}  />
+      <Outlet context={searchResult}  /> */}
+      <h1>Testee</h1>
     </>
   )
 }

@@ -24,7 +24,7 @@ export const SearchContent: React.FC = () => {
   }, [searchResult])
 
   function handleBackPage () {
-    navigate(-1)
+    navigate('/home')
     searchResult?.cleanInput
   }
   

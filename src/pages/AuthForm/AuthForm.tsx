@@ -1,6 +1,5 @@
 import {useState, useContext, ChangeEvent, FormEvent, useEffect} from 'react'
 import { Input } from "../../components/Input"
-import { Header } from "../../components/Header"
 import { Button } from '../../components/Button'
 import { useNavigate } from "react-router-dom";
 import {AuthContext} from '../../contexts/Auth/AuthContext'
@@ -17,6 +16,10 @@ export const AuthForm: React.FC = () => {
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
   const [error, setError] = useState<string>('')
+
+  if (auth.user) {
+    navigate('/home', {replace: true})
+  }
 
   const handleNameInput = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -35,7 +38,11 @@ export const AuthForm: React.FC = () => {
 
   useEffect(() => {
     async function autoLogin () {
-      await auth.autoLogin()
+      try {
+        await auth.autoLogin()
+      } catch (error: any) {
+        setError(error.response.data.message)
+      }
     }
 
     autoLogin()
@@ -68,18 +75,16 @@ export const AuthForm: React.FC = () => {
         
         if (isRegistered) {
           await auth.login(email, password)
-          navigate('/home');
         }
 
       } catch (error: any) {
-      setError(error.response.data.error)
+        setError(error.response.data.error)
       }
     }
   }
   
   return (
     <>
-    <Header />
     {variant == 'REGISTER' ? (
       <h1 className='text-center bold'>Registre-se ;p</h1>
     ) : <h1 className='text-center bold'>Faça Login :)</h1>}
