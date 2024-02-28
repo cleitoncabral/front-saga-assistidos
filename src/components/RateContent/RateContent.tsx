@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState } from "react"
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 import { MovieDBResults } from "../../types/MovieDB";
-import { Input } from "../Input";
+import { Input } from "../Input/Input";
 import { FiEdit3 } from "react-icons/fi";
 import { FeedbackHandler } from "../FeedbackHandler/FeedbackHandler";
 import { Feedback } from "../../types/Feedback";

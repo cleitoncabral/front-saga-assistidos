@@ -1,9 +1,9 @@
 import {useState, useContext, ChangeEvent, FormEvent, useEffect} from 'react'
-import { Input } from "../../components/Input"
-import { Button } from '../../components/Button'
+import { Input } from "../../components/Input/Input"
+import { Button } from '../../components/Button/Button'
 import { useNavigate } from "react-router-dom";
 import {AuthContext} from '../../contexts/Auth/AuthContext'
-import { ShowError } from '../../components/ShowError';
+import { ShowError } from '../../components/ShowError/ShowError';
 
 type variant = 'LOGIN' | 'REGISTER'
 

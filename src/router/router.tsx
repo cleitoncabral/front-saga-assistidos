@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import { AuthForm } from "../pages/AuthForm/AuthForm";
-import { Home } from "../pages/Home";
+import { Home } from "../pages/Home/Home";
 import { RequiredAuth } from "../contexts/Auth/RequiredAuth";
-import { SearchContent } from "../pages/SearchContent/SearchContent";
+import { ShowSearchResult } from "../pages/ShowSearchResult/ShowSearchResult";
 import { Base } from "../pages/Base/Base";
 import { AddContent } from "../pages/AddContent/AddContent";
 
@@ -25,11 +25,15 @@ export const router = createBrowserRouter([
             element: <Home />,
           },
           {
-            path: "/searchContent/:contentName",
-            element: <SearchContent />
+            path: "/searchContent/",
+            element: <ShowSearchResult />
           },
           {
-            path: "/searchContent/:contentName/:review",
+            path: "/searchContent/:review",
+            element: <AddContent />
+          },
+          {
+            path: "/home/:review",
             element: <AddContent />
           }
         ]

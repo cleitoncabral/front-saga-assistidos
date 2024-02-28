@@ -55,15 +55,14 @@ export const AuthProvider = ({children}: {children: JSX.Element}) => {
     localStorage.setItem('authToken', '')
   }
 
-
-  // const createContent = async (content: object, userToken: string) => {
-  //   const create = await api.createContent(content, userToken)
-  //   console.log(create)
-  //   const getAllContentWatched = await api.getAllContentWatched(userToken)
-  //   setContentWatched(getAllContentWatched.data)
+  const createContent = async (content: object, userToken: string) => {
+    const create = await api.createContent(content, userToken)
+    console.log(create)
+    const getAllContentWatched = await api.getAllContentWatched(userToken)
+    setContentWatched(getAllContentWatched.data)
     
-  //   return true
-  // }
+    return true
+  }
 
   // const updateContent = async (content: ContentWatched, id: string, userToken: string) => {
   //   const getAllContentWatched = await api.updateContent(content, id, userToken)
@@ -86,7 +85,7 @@ export const AuthProvider = ({children}: {children: JSX.Element}) => {
   // }
 
   return (
-    <AuthContext.Provider value={{user, login, autoLogin, register, contentWatched, logout}}> 
+    <AuthContext.Provider value={{user, login, autoLogin, register, contentWatched, logout, createContent}}> 
       {children}
     </AuthContext.Provider>
   )

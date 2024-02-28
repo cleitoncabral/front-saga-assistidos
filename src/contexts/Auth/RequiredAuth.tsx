@@ -1,6 +1,6 @@
-import {PropsWithChildren, useContext, useEffect} from 'react'
+import { useContext, useEffect} from 'react'
 import { AuthContext } from './AuthContext'
-import { Outlet, useNavigate, useOutletContext, useParams } from 'react-router-dom'
+import { Outlet, useNavigate, useOutletContext } from 'react-router-dom'
 
 export const RequiredAuth = () => {
   const {user} = useContext(AuthContext)

@@ -10,7 +10,7 @@ export type AuthContextType = {
   autoLogin: () => Promise<boolean>
   contentWatched: Array<ContentWatched> | null
   logout: () => void
-  // createContent: (content: object, userToken: string) => Promise<boolean>
+  createContent: (content: object, userToken: string) => Promise<boolean>
   // updateContent: (content: ContentWatched, id: string, userToken: string) => Promise<boolean>
   // deleteContent: (id: string, userToken: string) => Promise<boolean>
   // deleteAllContentWatched: (user: User | null) => Promise<boolean>
