@@ -3,12 +3,13 @@ import { ContentWatched } from '../types/ContentWatched'
 import { User } from '../types/User'
 
 const api = axios.create({
-  baseURL: 'https://fuzzy-pink-lab-coat.cyclic.app'
+  baseURL: import.meta.env.VITE_BASE_URL
 })
 
 export const useApi = () => ({
 
   login: async (email: string, password: string) => {
+    console.log(api)
     const response = await api.post('/login', {email, password})
     
     return response.data

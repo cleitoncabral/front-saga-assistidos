@@ -12,7 +12,7 @@ export const dataBaseMovieApi = () => ({
 
   getDataMovieApiById: async (id: number | null): Promise<MovieDBResults> => {
     const response = await axios.get(api.baseURL + `/movie/${id}?language=pt-BR&api_key=${import.meta.env.VITE_API_KEY}`)
-    console.log(response.data)
+
     return response.data
   }
 })
