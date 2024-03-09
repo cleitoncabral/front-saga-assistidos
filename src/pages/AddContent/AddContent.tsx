@@ -10,7 +10,7 @@ export const AddContent = () => {
   const { user, deleteContent } = useContext(AuthContext)
   let { state } = useLocation()
   let navigate = useNavigate ();
-  
+
   const hasRate = user?.contentWatched.filter((item) => item.contentId == user.id)
 
   function handleBackPage () {
@@ -18,7 +18,8 @@ export const AddContent = () => {
   }
   
   function handleDeleteItem () {
-    deleteContent(state.reviewContent[0].id, user?.token)
+    console.log(state)
+    deleteContent(state.reviewContent.id, user?.token)
     navigate(-1)
   }
 

@@ -1,7 +1,6 @@
-import { IoStarOutline } from "react-icons/io5";
 import './StarsRtatin.module.css'
-import { Rating, RatingProps } from 'react-simple-star-rating'
-import { MouseEvent, MouseEventHandler, useState } from "react";
+import { Rating } from 'react-simple-star-rating'
+import { MouseEvent } from "react";
 
 interface handleRateClick {
   (value: number, 

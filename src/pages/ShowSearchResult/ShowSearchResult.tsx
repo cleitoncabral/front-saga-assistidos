@@ -37,7 +37,7 @@ export const ShowSearchResult: React.FC = () => {
         {
           contentSearched ?
           contentSearched?.results.map((item: MovieDBResults) => {return <Card key={item.id} searchResultItem={item}/> })
-          : <h1>Carregando...</h1> 
+          : <h1>Conteúdo não encontrado</h1> 
         }
       </div>
     </main>

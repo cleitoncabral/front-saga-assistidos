@@ -14,7 +14,6 @@ export const AuthProvider = ({children}: {children: JSX.Element}) => {
   const login = async (email: string, password: string) => {
     const data = await api.login(email, password)
     if (data && data.token) {    
-      
       setUser(data)
       setContentWatched(data.contentWatched)
       setLocalStorageToken(data.token)
@@ -55,37 +54,37 @@ export const AuthProvider = ({children}: {children: JSX.Element}) => {
     localStorage.setItem('authToken', '')
   }
 
-  const createContent = async (content: object, userToken: string) => {
-    const create = await api.createContent(content, userToken)
-    console.log(create)
+  const createContent = async (content: object, userToken: string | undefined) => {
+     const response = await api.createContent(content, userToken)
+     console.log(response)
     const getAllContentWatched = await api.getAllContentWatched(userToken)
     setContentWatched(getAllContentWatched.data)
     
     return true
   }
 
-  // const updateContent = async (content: ContentWatched, id: string, userToken: string) => {
-  //   const getAllContentWatched = await api.updateContent(content, id, userToken)
-  //   await setContentWatched(getAllContentWatched.data)
-  //   return true
-  // }
+  const updateContent = async (content: ContentWatched, userToken: string | undefined) => {
+    const getAllContentWatched = await api.updateContent(content, userToken)
+    await setContentWatched(getAllContentWatched.data)
+    return true
+  }
 
-  // const deleteContent = async (id: string, userToken: string) => {
-  //   const deleteContentWatched = await api.deleteContentWatched(id, userToken)
-  //   setContentWatched(deleteContentWatched.data)
+  const deleteContent = async (id: string, userToken: string | undefined) => {
+    const deleteContentWatched = await api.deleteContentWatched(id, userToken)
+    setContentWatched(deleteContentWatched.data)
     
-  //   return true
-  // }
+    return true
+  }
 
-  // const deleteAllContentWatched = async (user: User | null) => {
-  //   const response = await api.deleteAllContentWatched(user)
-  //   setContentWatched(null)
+  const deleteAllContentWatched = async (user: User | null) => {
+    await api.deleteAllContentWatched(user)
+    setContentWatched(null)
 
-  //   return true
-  // }
+    return true
+  }
 
   return (
-    <AuthContext.Provider value={{user, login, autoLogin, register, contentWatched, logout, createContent}}> 
+    <AuthContext.Provider value={{user, login, autoLogin, register, contentWatched, logout, createContent, updateContent, deleteContent, deleteAllContentWatched}}> 
       {children}
     </AuthContext.Provider>
   )

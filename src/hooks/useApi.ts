@@ -3,7 +3,7 @@ import { ContentWatched } from '../types/ContentWatched'
 import { User } from '../types/User'
 
 const api = axios.create({
-  baseURL: 'http://localhost:3003/api'
+  baseURL: 'https://fuzzy-pink-lab-coat.cyclic.app'
 })
 
 export const useApi = () => ({
@@ -46,7 +46,7 @@ export const useApi = () => ({
     return response
   },
 
-  createContent: async (content: object, userToken: string) => {
+  createContent: async (content: object, userToken: string | undefined) => {
     const response = await api.post('/contentWatched/create', content, {
       headers: {
         'Authorization': 'Bearer ' + userToken,
@@ -57,8 +57,8 @@ export const useApi = () => ({
     return response
   },
 
-  updateContent: async (content: ContentWatched, id: string, userToken: string) => {
-    const response = await api.put('/contentWatched/update/' + id, content , {
+  updateContent: async (content: ContentWatched, userToken: string | undefined) => {
+    const response = await api.put('/contentWatched/update/' + content.id, content , {
       headers: {
         'Authorization': 'Bearer ' + userToken,
         'Content-Type': 'application/json'
@@ -68,7 +68,7 @@ export const useApi = () => ({
     return response
   },
   
-  deleteContentWatched: async (id: string, userToken: string) => {
+  deleteContentWatched: async (id: string, userToken: string | undefined) => {
     const response = await api.delete('/contentWatched/delete/' + id, {
       headers: {
         'Authorization': 'Bearer ' + userToken,
@@ -79,7 +79,7 @@ export const useApi = () => ({
     return response
   },
 
-  getAllContentWatched: async (userToken: string) => {
+  getAllContentWatched: async (userToken: string | undefined) => {
     const response = await api.get('/contentWatched', {
       headers: {
         'Authorization': 'Bearer ' + userToken,

@@ -26,7 +26,8 @@ export const router = createBrowserRouter([
           },
           {
             path: "/searchContent/",
-            element: <ShowSearchResult />
+            element: <ShowSearchResult />,
+            children: []
           },
           {
             path: "/searchContent/:review",

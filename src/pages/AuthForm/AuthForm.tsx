@@ -4,8 +4,9 @@ import { Button } from '../../components/Button/Button'
 import { useNavigate } from "react-router-dom";
 import {AuthContext} from '../../contexts/Auth/AuthContext'
 import { ShowError } from '../../components/ShowError/ShowError';
+import Loading from '../../components/Loading/Loading';
 
-type variant = 'LOGIN' | 'REGISTER'
+type variant = 'LOGIN' | 'REGISTER';
 
 export const AuthForm: React.FC = () => {
   const auth = useContext(AuthContext);
@@ -16,6 +17,7 @@ export const AuthForm: React.FC = () => {
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
   const [error, setError] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(false)
 
   if (auth.user) {
     navigate('/home', {replace: true})
@@ -50,7 +52,7 @@ export const AuthForm: React.FC = () => {
 
   const handleAuth = async (e: FormEvent) => {
     e.preventDefault()
-
+    setLoading(true)
     if (variant === 'LOGIN' && email && password) {
       try {
         await auth.login(email, password)
@@ -58,6 +60,8 @@ export const AuthForm: React.FC = () => {
 
       } catch (error: any) {
         setError(error.response.data.message)
+      } finally {
+        setLoading(false)
       }
     }
   
@@ -90,7 +94,9 @@ export const AuthForm: React.FC = () => {
     ) : <h1 className='text-center bold'>Faça Login :)</h1>}
     <div className='mt-4 sm:mx-auto sm:w-full sm:max-w-md border rounded-md'>
       <div className='px-4 py-8 shadow sm:rounded-lg sm:px-10'>
-        <form onSubmit={handleAuth} className='space-y-6'>
+        {loading == false ? (
+          <>
+          <form onSubmit={handleAuth} className='space-y-6'>
           {variant == 'REGISTER' && (
             <Input label='Name' id="name" type='text' required={true} placeholder='Digite seu nome' value={name} onChange={handleNameInput} />
           )}
@@ -102,18 +108,22 @@ export const AuthForm: React.FC = () => {
           <div>
             <Button fullWidth type='submit'> {variant === 'LOGIN' ? 'Entrar' : 'Criar conta'} </Button>
           </div>
-        </form>
+          </form>
 
-        <div className="flex gap-2 justify-center mt-6 text-sm px-2 text-gray-500">
-          <div>
-            {variant === 'LOGIN' ? 'Primeira vez aqui?' : 'Já tem uma conta?'}
-          </div>
+          <div className="flex gap-2 justify-center mt-6 text-sm px-2 text-gray-500">
+            <div>
+              {variant === 'LOGIN' ? 'Primeira vez aqui?' : 'Já tem uma conta?'}
+            </div>
 
-          <div onClick={() => variant === 'LOGIN' ? (setvariant('REGISTER'), setError('')) : (setvariant('LOGIN'), setError(''))} className='text-gray-500 underline cursor-pointer'>
-            {variant === 'LOGIN' ? 'Crie uma conta!' : 'Fazer Login'}
+            <div onClick={() => variant === 'LOGIN' ? (setvariant('REGISTER'), setError('')) : (setvariant('LOGIN'), setError(''))} className='text-gray-500 underline cursor-pointer'>
+              {variant === 'LOGIN' ? 'Crie uma conta!' : 'Fazer Login'}
+            </div>
           </div>
-        </div>
+          </>
+
+        ) : <Loading />}
       </div>
+
     </div>
     </>
   )
